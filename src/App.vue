@@ -18,6 +18,8 @@ const tambahTugas = () => {
 }
 
 const totalTugas = computed(() => listTugas.value.length);
+const selesaiTugas = computed(() => listTugas.value.filter(tugas => tugas.selesai).length);
+const tugasBelumSelesai = computed(() => listTugas.value.filter(tugas => !tugas.selesai).length);
 
 </script>
 
@@ -34,7 +36,17 @@ const totalTugas = computed(() => listTugas.value.length);
       </li>
     </ul>
 
-    {{  totalTugas }}
+    <div>
+      <p>
+        total : {{ totalTugas }}
+      </p>
+      <p>
+        Selesai : {{ selesaiTugas }}
+      </p>
+      <p>
+        Belum Selesai : {{ tugasBelumSelesai }}
+      </p>
+    </div>
   </div>
 </template>
 
