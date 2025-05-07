@@ -27,6 +27,13 @@ const totalTugas = computed(() => listTugas.value.length);
     <input type="text" v-model="newTugas" @keyup.enter="tambahTugas" placeholder="Tambah tugas">
     <button @click="tambahTugas">Tambahkan</button>
 
+    <ul>
+      <li v-for="tugas in listTugas" :key="tugas.id">
+        <input type="checkbox" v-model="tugas.selesai">
+        {{ tugas.text }}
+      </li>
+    </ul>
+
     {{  totalTugas }}
   </div>
 </template>
