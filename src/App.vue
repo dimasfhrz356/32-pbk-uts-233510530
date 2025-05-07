@@ -21,6 +21,10 @@ const totalTugas = computed(() => listTugas.value.length);
 const selesaiTugas = computed(() => listTugas.value.filter(tugas => tugas.selesai).length);
 const tugasBelumSelesai = computed(() => listTugas.value.filter(tugas => !tugas.selesai).length);
 
+const hapusTugas = (id) => {
+  listTugas.value = listTugas.value.filter(tugas => tugas.id !== id);
+}
+
 </script>
 
 <template>
@@ -33,6 +37,7 @@ const tugasBelumSelesai = computed(() => listTugas.value.filter(tugas => !tugas.
       <li v-for="tugas in listTugas" :key="tugas.id">
         <input type="checkbox" v-model="tugas.selesai">
         {{ tugas.text }}
+        <button @click="hapusTugas(tugas.id)">Hapus</button>
       </li>
     </ul>
 
