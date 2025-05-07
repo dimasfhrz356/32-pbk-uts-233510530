@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 
 const listTugas = ref([]);
 const newTugas = ref('');
+const filterTugas = ref('semua');
 
 const tambahTugas = () => {
   if (newTugas.value.trim() !== '') {
@@ -25,6 +26,16 @@ const hapusTugas = (id) => {
   listTugas.value = listTugas.value.filter(tugas => tugas.id !== id);
 }
 
+const filterTugasList = computed(() => {
+  if (filterTugas.value === 'selesai') {
+    return listTugas.value.filter(tugas => tugas.selesai);
+  } else if (filterTugas.value === 'belum-selesai') {
+    return listTugas.value.filter(tugas => !tugas.selesai);
+  } else {
+    return listTugas.value;
+  }
+})
+
 </script>
 
 <template>
@@ -32,9 +43,14 @@ const hapusTugas = (id) => {
     <h1>To Do List</h1>
     <input type="text" v-model="newTugas" @keyup.enter="tambahTugas" placeholder="Tambah tugas">
     <button @click="tambahTugas">Tambahkan</button>
+    <div>
+      <button @click="filterTugas = 'semua'">Semua</button>
+      <button @click="filterTugas = 'selesai'">Selesai</button>
+      <button @click="filterTugas = 'belum selesai'">Belum Selesai</button>
+    </div>
 
     <ul>
-      <li v-for="tugas in listTugas" :key="tugas.id">
+      <li v-for="tugas in filterTugasList" :key="tugas.id">
         <input type="checkbox" v-model="tugas.selesai">
         {{ tugas.text }}
         <button @click="hapusTugas(tugas.id)">Hapus</button>
