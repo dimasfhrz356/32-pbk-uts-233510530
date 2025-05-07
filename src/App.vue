@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const listTugas = ref([]);
 const newTugas = ref('');
@@ -17,6 +17,8 @@ const tambahTugas = () => {
   }
 }
 
+const totalTugas = computed(() => listTugas.value.length);
+
 </script>
 
 <template>
@@ -24,6 +26,8 @@ const tambahTugas = () => {
     <h1>To Do List</h1>
     <input type="text" v-model="newTugas" @keyup.enter="tambahTugas" placeholder="Tambah tugas">
     <button @click="tambahTugas">Tambahkan</button>
+
+    {{  totalTugas }}
   </div>
 </template>
 
